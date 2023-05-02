@@ -1,33 +1,36 @@
-import React from "react";
-
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
 import {
   Avatar,
   Button,
-  Checkbox,
   Grid,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
 
-import FormControlLabel from "@mui/material/FormControlLabel";
 import { Link } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { loginUser } from "../../Redux/authslice";
 
 const Signin = () => {
+  const data = useSelector((state) => state.User);
+  const dispatch = useDispatch();
+  const handlesignin = (login) => {
+    dispatch(loginUser(login));
+  };
+
   const schema = yup
     .object({
       email: yup.string().email().required(),
       password: yup.string().required(),
-      // .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/)
     })
     .required();
 
-
-    
   const {
     register,
     handleSubmit,
@@ -35,20 +38,15 @@ const Signin = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => console.log(data);
-  console.log(errors, "errors");
-
-
-
-
+  const onSubmit = (data) => handlesignin(data);
 
   const paperStyle = {
     padding: 20,
-    height: "80vh",
-    width: 300,
+    height: "70vh",
+    width: 400,
     margin: "20px auto",
   };
-  const avatarStyle = { backgroundColor: "green" };
+  const avatarStyle = { backgroundColor: "blue" };
   const btnStyle = { margin: "8px 0" };
 
   return (
@@ -58,12 +56,12 @@ const Signin = () => {
           <Avatar style={avatarStyle}>
             <LockOutlinedIcon />
           </Avatar>
-          <h2>Sign In</h2>
+          <h2>Se Connecter</h2>
         </Grid>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
-            label="Email Address"
-            placeholder="Enter your Email"
+            label="Adresse  Email"
+            placeholder="Entrez votre adresse email"
             type={"email"}
             {...register("email")}
             autoComplete="email"
@@ -74,8 +72,8 @@ const Signin = () => {
           <br />
           <br />
           <TextField
-            label="Password"
-            placeholder="Enter your Password"
+            label="Mot de passe"
+            placeholder="Entrez votre mot de passe"
             type="password"
             {...register("password")}
             autoComplete="new-password"
@@ -90,20 +88,16 @@ const Signin = () => {
             style={btnStyle}
             fullWidth
           >
-            {" "}
-            Sign In
+            Se Connecter
           </Button>
         </form>
-        <FormControlLabel
-          control={<Checkbox name="checkedB" color="primary" />}
-          label="Remember me"
-        />
-
+        <p style={{ color: "red", fontSize: "26px" }}>{data.error}</p>
         <Typography>
-          <Link href="#">Forgot Password ?</Link>
+          vous n'avez pas un compte ?<br />
+          <Link to="/signupclient">S'inscrire Client</Link>
         </Typography>
         <Typography>
-          you don't have an account ?<Link to="/signup">Sign up</Link>
+          <Link to="/signupsociete">S'inscrire Société</Link>
         </Typography>
       </Paper>
     </Grid>

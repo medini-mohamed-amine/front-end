@@ -15,19 +15,32 @@ import {
 } from "@mui/material";
 
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
-import FormControlLabel from "@mui/material/FormControlLabel";
+
 import { Link } from "react-router-dom";
+// import { signupclient } from "../../Redux/authslice";
+// import { useDispatch } from "react-redux";
+// import { useSelector } from "react-redux";
 
-const Signup = () => {
-  const schema = yup
-    .object({
-      nom: yup.string().required(),
-      prenom: yup.string().required(),
-      email: yup.string().email().required(),
-      password: yup.string().required(),
-    })
-    .required();
+const Signupclient = () => {
+  // const data = useSelector((state) => state.client);
+  // const dispatch = useDispatch();
+  // const handlesignupclient = (signupC) => {
+  //   dispatch(signupclient(signupC));
+  // };
 
+  const schema = yup.object({
+    nom: yup.string("nom est obligatoire"),
+    prenom: yup.string("prenom est obligatoire"),
+    email: yup.string().email("email invalid"),
+    password: yup
+      .string()
+
+      .min(6, "mot de passe doit etre plus que 6 caracteres"),
+    confirmpassword: yup.string().oneOf([yup.ref("password")]),
+    checkbox1: yup
+      .boolean()
+      .oneOf([true], <p style={{ color: "red" }}>Checkbox selection is</p>),
+  });
   const {
     register,
     handleSubmit,
@@ -36,8 +49,9 @@ const Signup = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => console.log(data);
-  console.log(errors, "errors");
+  // const onSubmit = (data) => handlesignupclient(data);
+  // console.log(errors, "errors");
+
 
   const paperStyle = {
     padding: "30px 20px",
@@ -45,7 +59,7 @@ const Signup = () => {
     margin: "20px auto",
   };
   const headerStyle = { margin: "0" };
-  const avatarStyle = { backgroundColor: "#1bbd7e" };
+  const avatarStyle = { backgroundColor: "blue" };
 
   return (
     <Grid>
@@ -54,23 +68,21 @@ const Signup = () => {
           <Avatar style={avatarStyle}>
             <PersonAddAltIcon />
           </Avatar>
-          <h2 style={headerStyle}>Sign Up </h2>
+          <h2 style={headerStyle}> S'inscrire Client </h2>
           <Typography variant="caption">
-            please fill this form to create an account !{" "}
+            merci de remplir ce formulaire pour créer un compte !{" "}
           </Typography>
           <br />
           <br />
         </Grid>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit}>
           <div style={{ display: "flex", gap: "15px" }}>
             <TextField
               fullWidth
-              label="nom"
+              label="Nom"
               type="text"
               {...register("nom")}
               placeholder="Entrez votre nom"
-              // autoComplete="on"
-
               autoComplete="nom"
               error={errors.nom}
               helperText={errors.nom && errors.nom.message}
@@ -78,7 +90,7 @@ const Signup = () => {
 
             <TextField
               fullWidth
-              label="prenom"
+              label="Prenom"
               type="text"
               {...register("prenom")}
               placeholder="Entrez votre prenom"
@@ -91,7 +103,7 @@ const Signup = () => {
           <br />
           <TextField
             fullWidth
-            label="email"
+            label="Email"
             type="email"
             {...register("email")}
             placeholder="Entrez votre Email"
@@ -103,7 +115,7 @@ const Signup = () => {
           <br />
           <TextField
             fullWidth
-            label="password"
+            label="Mot de passe"
             type="password"
             {...register("password")}
             placeholder="Entrez votre mot de passe"
@@ -113,22 +125,41 @@ const Signup = () => {
           ></TextField>
           <br />
           <br />
-
-          <FormControlLabel
-            control={<Checkbox name="checkedB" color="primary" />}
-            label="I accept terms and conditions"
+          <TextField
+            fullWidth
+            label="Confirmez mot de passe"
+            type="password"
+            {...register("confirmpassword")}
+            placeholder="Confirmez votre mot de passe"
+            autoComplete="new-password"
+            error={errors.confirmpassword}
+            helperText={
+              errors.confirmpassword && errors.confirmpassword.message
+            }
+          ></TextField>
+          <br />
+          <br />
+          <Checkbox
+            color="primary"
+            type="checkbox"
+            {...register("checkbox1")}
+            error={errors.checkbox1}
+            helperText={errors.checkbox1 && errors.checkbox1.message}
           />
-          {/* <Link to="/terms">I accept terms and conditions</Link> */}
-
+          <Link to="https://lecahier.com/termes-et-conditions/" target="_blank">
+            J'accepte les termes et les conditions
+          </Link>{" "}
+          {errors.checkbox1 && <span>{errors.checkbox1.message}</span>}
           <Button type="submit" variant="contained" color="primary">
             Sign up
           </Button>
           <Typography>
-            You have already an account ? <Link to="/signin">Sign In</Link>
+            Vous avez déjà un compte ? <Link to="/signin">Sign In</Link>
           </Typography>
         </form>
+        {/* <p style={{ color: "red", fontSize: "26px" }}>{data.error}</p> */}
       </Paper>
     </Grid>
   );
 };
-export default Signup;
+export default Signupclient;
