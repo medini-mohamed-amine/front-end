@@ -76,7 +76,7 @@ const Dashboard = () => {
         {["LogOut"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
-              <LogoutIcon />,
+              <LogoutIcon />
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>

@@ -1,17 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authslice from "./Redux/authslice";
-// import authclient from "./Redux/authslice";
-// import authsociete from "./Redux/authslice";
-
+import authslice from "./Redux/LoginSlice";
 import companySlice from "./Redux/CompanySlice";
+import registerClient from "./Redux/SignupClientSlice";
+import registerSociete from "./Redux/SignupSocieteSlice";
+import registerDataSociete from "./Redux/DataSocieteSlice";
+import FetchListeClients from "./Redux/ListeClientsSlice";
+import ResultatComparison from "./Redux/HomeSlice";
 
 const store = configureStore({
   reducer: {
     User: authslice,
-    // client: authclient,
-    // societe: authsociete,
-
     Company: companySlice,
+    Client: registerClient,
+    Societe: registerSociete,
+    Datasociete: registerDataSociete,
+    ListeClients: FetchListeClients,
+    TwoCompanies: ResultatComparison,
   },
 });
 

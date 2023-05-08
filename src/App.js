@@ -19,6 +19,7 @@ import Listeavis from "./pages/Dashboard/ListeAvis";
 import DemandeAides from "./pages/Dashboard/DemandeAides";
 
 import { Helmet } from "react-helmet";
+import DataSociete from "./pages/DataSociete";
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
           <Route path="/ListeSocietes" element={<Listesocietes />} />
           <Route path="/ListeAvis" element={<Listeavis />} />
           <Route path="/DemandeAides" element={<DemandeAides />} />
+          <Route path="/DataSociete" element={<DataSociete />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <Footer />

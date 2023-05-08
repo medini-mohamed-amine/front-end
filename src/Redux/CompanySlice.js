@@ -8,7 +8,7 @@ let initialState = {
 };
 
 export const companyinformations = createAsyncThunk(
-  "company/companyinformations",
+  "Company/companyinformations",
   async () => {
     let res = await AinstanceAxios.get("admin/societes");
     return await res.data;
@@ -24,7 +24,7 @@ const companySlice = createSlice({
     },
 
     [companyinformations.fulfilled]: (state, { payload }) => {
-      state.loadingcompany = true;
+      state.loadingcompany = false;
       state.company = payload;
       state.datacompany = "valid";
     },

@@ -12,53 +12,22 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Rating from "@mui/material/Rating";
 
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
+
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { ResultatComparison } from "../../Redux/HomeSlice";
+
 const Home = () => {
-  const societes = [
-    {
-      label: "Aramex",
-      logo: "https://logowik.com/content/uploads/images/aramex9681.jpg",
-    },
-    {
-      label: "Tunisia Express",
-      logo: "https://tunisia-express.tn/wp-content/uploads/2015/06/gr_texpress.jpg",
-    },
-    {
-      label: "DHL Express",
-      logo: "https://www.nicepng.com/png/detail/51-514871_dhl-express-logo-black-and-white-international-express.png",
-    },
-    {
-      label: "Fedex",
-      logo: "https://www.fouta-napoleone.com/wp-content/uploads/2014/09/fedex-tunisia.jpg",
-    },
-    {
-      label: "UPS tunisie",
-      logo: "https://www.tustex.com/sites/default/files//styles/large/public/field/image/ups-620x330.jpg?itok=Wug1iESc",
-    },
-    {
-      label: "First Delivery",
-      logo: "https://www.tunisietravail.net/uploads/2021/05/first-delivery-group-200x200.png",
-    },
-    {
-      label: "TNT tunisie",
-      logo: "https://www.tnt.com/dam/campaign/iccampaign/tnt-fedex-logo-fr.png",
-    },
-    {
-      label: "Afric Express",
-      logo: "https://www.afric-express.tn/wp-content/uploads/2019/02/LOGO-AFRIC-EXPRESS.png",
-    },
-    {
-      label: "Colissimo",
-      logo: "https://colissimo.tn/wp-content/uploads/2023/02/colisssssssssssssssssssssssssss-removebg-preview-1.png",
-    },
-    {
-      label: "Allo Coursier",
-      logo: "https://www.allocoursier.com/images/alo2.png",
-    },
-    {
-      label: "Ship box",
-      logo: "https://cuanto-user-avatars.sfo2.digitaloceanspaces.com/b001f714-41c2-40aa-8405-78d303b53ba7",
-    },
-  ];
+  const dataHome = useSelector((state) => state);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(ResultatComparison());
+  }, []);
+
+  console.log("=================", dataHome.TwoCompanies.Home);
 
   const [compar, setCompar] = useState({
     compar1: "",
@@ -100,7 +69,7 @@ const Home = () => {
         <div class="container">
           <h1 class="display-4">Comparer 2 sociétés</h1>
           <p class="lead">
-            Entrez les noms de 2 sociétés à comparer ci-dessous
+            Séléctionnez les noms de 2 sociétés à comparer ci-dessous
           </p>
           <form>
             <div class="form-row">
@@ -111,7 +80,7 @@ const Home = () => {
                     setCompar({ ...compar, compar1: v.label })
                   }
                   sx={{ width: 480 }}
-                  options={societes}
+                  options={dataHome.TwoCompanies.Home}
                   autoHighlight
                   getOptionLabel={(option) => option.label}
                   renderOption={(props, option) => (
@@ -127,7 +96,7 @@ const Home = () => {
                         src={option.logo}
                         alt=""
                       />
-                      {option.label}
+                      {option.nomsociete}
                     </Box>
                   )}
                   renderInput={(params) => (
@@ -147,9 +116,12 @@ const Home = () => {
                 <Autocomplete
                   id="societe-select2"
                   sx={{ width: 480 }}
-                  options={societes.filter(
-                    (item) => item.label !== compar.compar1
-                  )}
+                  options={
+                    dataHome.TwoCompanies.Home &&
+                    dataHome.TwoCompanies.Home.filter(
+                      (item) => item.label !== compar.compar1
+                    )
+                  }
                   autoHighlight
                   onChange={(e, v) =>
                     setCompar({ ...compar, compar2: v.label })
@@ -168,7 +140,7 @@ const Home = () => {
                         src={option.logo}
                         alt=""
                       />
-                      {option.label}
+                      {option.nomsociete}
                     </Box>
                   )}
                   renderInput={(params) => (
@@ -399,7 +371,7 @@ const Home = () => {
             item
             xs={4}
           >
-            <b> Destination</b>
+            <b> Gouvernorats de livraison</b>
           </Grid>
           <Grid
             item
@@ -456,6 +428,99 @@ const Home = () => {
             xs={4}
           >
             <Pie data={data} />
+          </Grid>
+          <hr />
+
+          <Grid
+            item
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+            }}
+            xs={4}
+          >
+            <TextField
+              variant="filled"
+              placeholder="Donner votre avis"
+            ></TextField>
+            <Button variant="contained" endIcon={<SendIcon />}>
+              Envoyer
+            </Button>
+          </Grid>
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+            }}
+            item
+            xs={4}
+          >
+            <b> Donner votre avis</b>
+          </Grid>
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+            }}
+            item
+            xs={4}
+          >
+            <TextField variant="filled" placeholder="Donner votre avis">
+              {" "}
+            </TextField>
+            <Button variant="contained" endIcon={<SendIcon />}>
+              Envoyer
+            </Button>
+          </Grid>
+          <hr />
+
+          <Grid
+            item
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+            }}
+            xs={4}
+          >
+            <Rating name="size-large" defaultValue={0} size="large" />
+          </Grid>
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+            }}
+            item
+            xs={4}
+          >
+            <b>Noter une société</b>
+          </Grid>
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+            }}
+            item
+            xs={4}
+          >
+            <Rating name="size-large" defaultValue={0} size="large" />
           </Grid>
         </Grid>
       </section>

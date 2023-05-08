@@ -15,7 +15,7 @@ import {
 
 import { Link } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { loginUser } from "../../Redux/authslice";
+import { loginUser } from "../../Redux/LoginSlice";
 
 const Signin = () => {
   const data = useSelector((state) => state.User);
@@ -23,6 +23,8 @@ const Signin = () => {
   const handlesignin = (login) => {
     dispatch(loginUser(login));
   };
+
+  const onSubmit = (data) => handlesignin(data);
 
   const schema = yup
     .object({
@@ -38,7 +40,7 @@ const Signin = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data) => handlesignin(data);
+ 
 
   const paperStyle = {
     padding: 20,

@@ -17,16 +17,21 @@ import {
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 
 import { Link } from "react-router-dom";
-// import { signupclient } from "../../Redux/authslice";
-// import { useDispatch } from "react-redux";
-// import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { addclient } from "../../Redux/SignupClientSlice";
 
 const Signupclient = () => {
-  // const data = useSelector((state) => state.client);
-  // const dispatch = useDispatch();
-  // const handlesignupclient = (signupC) => {
-  //   dispatch(signupclient(signupC));
-  // };
+
+  const data = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  const handlesignupclient = (signupclient) => {
+    dispatch(addclient(signupclient));
+    console.log("this is data ", data);
+  };
+
+  const onSubmit = (data) => handlesignupclient(data);
 
   const schema = yup.object({
     nom: yup.string("nom est obligatoire"),
@@ -34,7 +39,6 @@ const Signupclient = () => {
     email: yup.string().email("email invalid"),
     password: yup
       .string()
-
       .min(6, "mot de passe doit etre plus que 6 caracteres"),
     confirmpassword: yup.string().oneOf([yup.ref("password")]),
     checkbox1: yup
@@ -49,9 +53,7 @@ const Signupclient = () => {
     resolver: yupResolver(schema),
   });
 
-  // const onSubmit = (data) => handlesignupclient(data);
-  // console.log(errors, "errors");
-
+ 
 
   const paperStyle = {
     padding: "30px 20px",
@@ -75,7 +77,7 @@ const Signupclient = () => {
           <br />
           <br />
         </Grid>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div style={{ display: "flex", gap: "15px" }}>
             <TextField
               fullWidth
@@ -151,13 +153,13 @@ const Signupclient = () => {
           </Link>{" "}
           {errors.checkbox1 && <span>{errors.checkbox1.message}</span>}
           <Button type="submit" variant="contained" color="primary">
-            Sign up
+            S'inscrire
           </Button>
           <Typography>
-            Vous avez déjà un compte ? <Link to="/signin">Sign In</Link>
+            Vous avez déjà un compte ? <Link to="/signin">Se Connecter</Link>
           </Typography>
         </form>
-        {/* <p style={{ color: "red", fontSize: "26px" }}>{data.error}</p> */}
+        <p style={{ color: "red", fontSize: "26px" }}>{data.error}</p>
       </Paper>
     </Grid>
   );

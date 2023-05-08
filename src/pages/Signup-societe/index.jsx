@@ -16,21 +16,20 @@ import {
 
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import { Link } from "react-router-dom";
-
-
-// import { signupsociete } from "../../Redux/authslice";
-// import { useDispatch } from "react-redux";
-// import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { addsociete } from "../../Redux/SignupSocieteSlice";
 
 const Signupsociete = () => {
+  const data = useSelector((state) => state);
+  const dispatch = useDispatch();
 
+  const handlesignupsociete = (Signupsociete) => {
+    dispatch(addsociete(Signupsociete));
+    console.log("data ", data);
+  };
 
-
-  // const data = useSelector((state) => state.societe);
-  // const dispatch = useDispatch();
-  // const handlesignupsociete = (signupS) => {
-  //   dispatch(signupsociete(signupS));
-  // };
+  const onSubmit = (data) => handlesignupsociete(data);
 
   const schema = yup
     .object({
@@ -40,10 +39,16 @@ const Signupsociete = () => {
         .string()
         .required()
         .min(6, "mot de passe doit etre plus que 6 caracteres"),
-      confirmpassword: yup.string().oneOf([yup.ref("password")]).required(),
+      confirmpassword: yup
+        .string()
+        .oneOf([yup.ref("password")])
+        .required(),
       checkbox1: yup
         .boolean()
-        .oneOf([true], <p style={{color:"red"}}>Checkbox selection is required !</p>)
+        .oneOf(
+          [true],
+          <p style={{ color: "red" }}>Checkbox selection is required !</p>
+        )
         .required(),
     })
     .required();
@@ -55,9 +60,6 @@ const Signupsociete = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  // const onSubmit = (data) => handlesignupsociete(data);
-  // console.log(errors, "errors");
 
   const paperStyle = {
     padding: "30px 20px",
@@ -81,7 +83,7 @@ const Signupsociete = () => {
           <br />
           <br />
         </Grid>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div style={{ display: "flex", gap: "15px" }}>
             <TextField
               id="nomsociete"
@@ -133,11 +135,12 @@ const Signupsociete = () => {
             placeholder="Confirmez votre mot de passe"
             autoComplete="new-password"
             error={errors.confirmpassword}
-            helperText={errors.confirmpassword && errors.confirmpassword.message}
+            helperText={
+              errors.confirmpassword && errors.confirmpassword.message
+            }
           ></TextField>
           <br />
           <br />
-
           <Checkbox
             color="primary"
             type="checkbox"
@@ -145,18 +148,17 @@ const Signupsociete = () => {
             error={errors.checkbox1}
             helperText={errors.checkbox1 && errors.checkbox1.message}
           />
-          <Link  to="https://lecahier.com/termes-et-conditions/" target="_blank">J'accepte les termes et les conditions</Link> 
-          {' '}
+          <Link to="https://lecahier.com/termes-et-conditions/" target="_blank">
+            J'accepte les termes et les conditions
+          </Link>{" "}
           {errors.checkbox1 && <span>{errors.checkbox1.message}</span>}
-
           <Button type="submit" variant="contained" color="primary">
-            Sign up
+            S'inscrire
           </Button>
           <Typography>
-          Vous avez déjà un compte ? <Link to="/signin">Sign In</Link>
+            Vous avez déjà un compte ? <Link to="/signin">Se Connecter</Link>
           </Typography>
         </form>
-        {/* <p style={{ color: "red", fontSize: "26px" }}>{data.error}</p> */}
       </Paper>
     </Grid>
   );
