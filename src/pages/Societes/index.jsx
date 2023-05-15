@@ -18,12 +18,13 @@ const Societes = () => {
     <div>
       <section className="section1">
         <div className={style.container}>
-          <h1>Toutes les sociétés</h1>
+          <h1 className={style.titre}>Toutes les sociétés</h1>
           <div className={style.cards}>
             {data.Company.company &&
               data.Company.company.map((card, index) => (
                 <div className={style.card}>
                   <h3>{card.nomsociete}</h3>
+                  <img src={card.logo} width={100} height={70} />
                   <p>
                     <b>Num Tel:</b> {card.numerotel}
                   </p>
@@ -31,16 +32,16 @@ const Societes = () => {
                     <b>Adresse:</b> {card.adresse}
                   </p>
                   <p>
-                    <b>Email:</b> {card.email}
+                    <b>Email: </b> {card.email}
                   </p>
                   <p>
-                    <b>Prix(en DT):</b> {card.prix}
+                    <b>Prix: {card.prix} DT</b>
                   </p>
                   <p>
-                    <b>Poids:(en KG):</b> {card.poids}
+                    <b>Poids Max: {card.poids} KG</b>
                   </p>
                   <p>
-                    <b>Temps:(en H):</b> {card.temps}
+                    <b>Temps: {card.temps} Heures</b>
                   </p>
                   <p>
                     <b>Gouvernorat:</b> {card.gouvernorat}
@@ -48,7 +49,7 @@ const Societes = () => {
                   <p>
                     <b>Description:</b> {card.description}
                   </p>
-                  <button className={style.btn1}>show more</button>
+                  <button className={style.btn1}>afficher plus</button>
                 </div>
               ))}
           </div>

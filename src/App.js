@@ -21,7 +21,6 @@ import DemandeAides from "./pages/Dashboard/DemandeAides";
 import { Helmet } from "react-helmet";
 import DataSociete from "./pages/DataSociete";
 
-
 function App() {
   return (
     <div>

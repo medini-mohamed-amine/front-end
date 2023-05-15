@@ -28,6 +28,7 @@ const DataSociete = () => {
         .required("telephone est obligatoire"),
       gouvernorat: yup.string().required("gouvernorats est obligatoire"),
       description: yup.string().required("description est obligatoire"),
+      logo: yup.string().required("Logo est obligatoire"),
       temps: yup.number().integer().positive().min(1).required(),
       prix: yup.number().min(1).required(),
       poids: yup.number().min(1).required(),
@@ -108,9 +109,21 @@ const DataSociete = () => {
           />
           <br />
           <br />
+          <TextField
+            label="L'URL du Logo de société"
+            placeholder="Entrez l'URL de logo de société"
+            type="text"
+            {...register("logo")}
+            autoComplete="logo"
+            fullWidth
+            error={errors.logo}
+            helperText={errors.logo && errors.logo.message}
+          />
+          <br />
+          <br />
           <div style={{ display: "flex", gap: "15px" }}>
             <TextField
-              label="Temps de livraison (en H)"
+              label="Temps de livraison"
               placeholder="Entrez le temps de livraison (en H)"
               type="text"
               {...register("temps")}
@@ -120,7 +133,7 @@ const DataSociete = () => {
               helperText={errors.temps && errors.temps.message}
             ></TextField>
             <TextField
-              label="Prix de livraison (en DT)"
+              label="Prix de livraison"
               placeholder="Entrez le prix de livraison (en DT)"
               type="text"
               {...register("prix")}
@@ -130,8 +143,8 @@ const DataSociete = () => {
               helperText={errors.prix && errors.prix.message}
             ></TextField>
             <TextField
-              label="Poids de livraison (en KG)"
-              placeholder="Entrez le poids de livraison (en KG)"
+              label="Poids Max de livraison"
+              placeholder="Entrez le poids max de livraison (en KG)"
               type="text"
               {...register("poids")}
               autoComplete="poids"

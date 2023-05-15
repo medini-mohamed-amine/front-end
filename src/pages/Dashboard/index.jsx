@@ -41,9 +41,9 @@ const Dashboard = () => {
       <List>
         {[
           {
-            Icon:  <PeopleIcon />,
+            Icon: <PeopleIcon />,
             label: "Liste Clients",
-            path:  "/listeclients",
+            path: "/listeclients",
           },
           {
             Icon: <LocationCityIcon />,

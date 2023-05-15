@@ -77,12 +77,12 @@ const Home = () => {
                 <Autocomplete
                   id="societe-select1"
                   onChange={(e, v) =>
-                    setCompar({ ...compar, compar1: v.label })
+                    setCompar({ ...compar, compar1: v.nomsociete })
                   }
                   sx={{ width: 480 }}
                   options={dataHome.TwoCompanies.Home}
                   autoHighlight
-                  getOptionLabel={(option) => option.label}
+                  getOptionLabel={(option) => option.nomsociete}
                   renderOption={(props, option) => (
                     <Box
                       component="li"
@@ -94,7 +94,7 @@ const Home = () => {
                         height="50"
                         width="90"
                         src={option.logo}
-                        alt=""
+                        alt="logo Société"
                       />
                       {option.nomsociete}
                     </Box>
@@ -119,14 +119,14 @@ const Home = () => {
                   options={
                     dataHome.TwoCompanies.Home &&
                     dataHome.TwoCompanies.Home.filter(
-                      (item) => item.label !== compar.compar1
+                      (item) => item.nomsociete !== compar.compar1
                     )
                   }
                   autoHighlight
                   onChange={(e, v) =>
-                    setCompar({ ...compar, compar2: v.label })
+                    setCompar({ ...compar, compar2: v.nomsociete })
                   }
-                  getOptionLabel={(option) => option.label}
+                  getOptionLabel={(option) => option.nomsociete}
                   renderOption={(props, option) => (
                     <Box
                       component="li"

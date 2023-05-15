@@ -1,60 +1,67 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import stylesociete from "./societestyle.module.css";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+
+import { ShowListeSocietes } from "../../../Redux/ListeSocietesSlice";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Listesocietes = () => {
+  const data = useSelector((state) => state.ListesSocietes.listesociete);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(ShowListeSocietes());
+  }, []);
+  console.log(data);
+
   return (
-    <table  className={stylesociete.table}>
-      <tr className={stylesociete.tr}>
-        <th className={stylesociete.th}>ID:</th>
-        <th className={stylesociete.th}>Nom Société:</th>
-        <th className={stylesociete.th}>Email Société:</th>
-        <th className={stylesociete.th}>Adresse Société:</th>
-        <th className={stylesociete.th}>Num Tél Société:</th>
-        <th className={stylesociete.th}>Supprimer:</th>
-      </tr>
-      <tr className={stylesociete.table}>
-        <td className={stylesociete.td}>1</td>
-        <td className={stylesociete.td}>Peter</td>
-        <td className={stylesociete.td}>Griffin</td>
-        <td className={stylesociete.td}>$100</td>
-        <td className={stylesociete.td}>$100</td>
-        <td className={stylesociete.td}><DeleteIcon /></td>
-      </tr>
-      <tr className={stylesociete.table}>
-        <td className={stylesociete.td}>2</td>
-        <td className={stylesociete.td}>Peter</td>
-        <td className={stylesociete.td}>Griffin</td>
-        <td className={stylesociete.td}>$100</td>
-        <td className={stylesociete.td}>$100</td>
-        <td className={stylesociete.td}><DeleteIcon /></td>
-      </tr>
-      <tr className={stylesociete.table}>
-        <td className={stylesociete.td}>3</td>
-        <td className={stylesociete.td}>Lois</td>
-        <td className={stylesociete.td}>Griffin</td>
-        <td className={stylesociete.td}>$150</td>
-        <td className={stylesociete.td}>$100</td>
-        <td className={stylesociete.td}><DeleteIcon /></td>
-      </tr>
-      <tr className={stylesociete.table}>
-        <td className={stylesociete.td}>4</td>
-        <td className={stylesociete.td}>Joe</td>
-        <td className={stylesociete.td}>Swanson</td>
-        <td className={stylesociete.td}>$300</td>
-        <td className={stylesociete.td}>$100</td>
-        <td className={stylesociete.td}><DeleteIcon /></td>
-      </tr>
-      <tr className={stylesociete.table}>
-        <td className={stylesociete.td}>5</td>
-        <td className={stylesociete.td}>Cleveland</td>
-        <td className={stylesociete.td}>Brown</td>
-        <td className={stylesociete.td}>$250</td>
-        <td className={stylesociete.td}>$100</td>
-        <td className={stylesociete.td}><DeleteIcon /></td>
-      </tr>
-    </table>
+    <div>
+      <h2
+        style={{ fontSize: "60px", fontFamily: "cursive", textAlign: "left" }}
+      >
+        La liste des Sociétés
+      </h2>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>ID Société</TableCell>
+              <TableCell align="right">Nom Société</TableCell>
+              <TableCell align="right">Adresse Société</TableCell>
+              <TableCell align="right">Numéro téléphone</TableCell>
+              <TableCell align="right">Supprimer</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data &&
+              data?.map((row) => (
+                <TableRow
+                  key={row.idsociete}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.idsociete}
+                  </TableCell>
+                  <TableCell align="right">{row.nomsociete}</TableCell>
+                  <TableCell align="right">{row.adresse}</TableCell>
+                  <TableCell align="right">{row.numerotel}</TableCell>
+                  <TableCell align="right">
+                    <DeleteIcon />
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   );
 };
 

@@ -7,10 +7,16 @@ let initialState = {
   loadingdatasociete: "false",
 };
 
-export const adddatasociete = createAsyncThunk("Datasociete/adddatasociete", async (body) => {
-  let res = await AinstanceAxios.post("authentification/registersociete", body);
-  return await res;
-});
+export const adddatasociete = createAsyncThunk(
+  "Datasociete/adddatasociete",
+  async (body) => {
+    let res = await AinstanceAxios.post(
+      "authentification/registersociete",
+      body
+    );
+    return await res;
+  }
+);
 
 const registerDataSociete = createSlice({
   name: "Datasociete",

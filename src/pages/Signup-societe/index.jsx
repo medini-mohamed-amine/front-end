@@ -152,7 +152,7 @@ const Signupsociete = () => {
             J'accepte les termes et les conditions
           </Link>{" "}
           {errors.checkbox1 && <span>{errors.checkbox1.message}</span>}
-          <Button type="submit" variant="contained" color="primary">
+          <Button type="submit" variant="contained" color="primary" >
             S'inscrire
           </Button>
           <Typography>
