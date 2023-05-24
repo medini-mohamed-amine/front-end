@@ -22,7 +22,6 @@ import { useSelector } from "react-redux";
 import { addclient } from "../../Redux/SignupClientSlice";
 
 const Signupclient = () => {
-
   const data = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -34,16 +33,21 @@ const Signupclient = () => {
   const onSubmit = (data) => handlesignupclient(data);
 
   const schema = yup.object({
-    nom: yup.string("nom est obligatoire"),
-    prenom: yup.string("prenom est obligatoire"),
-    email: yup.string().email("email invalid"),
+    nom: yup.string("nom est obligatoire").required(),
+    prenom: yup.string("prenom est obligatoire").required(),
+    email: yup.string().email("email invalid").required(),
     password: yup
       .string()
-      .min(6, "mot de passe doit etre plus que 6 caracteres"),
-    confirmpassword: yup.string().oneOf([yup.ref("password")]),
+      .min(6, "mot de passe doit etre plus que 6 caracteres")
+      .required(),
+    confirmpassword: yup
+      .string()
+      .oneOf([yup.ref("password")])
+      .required(),
     checkbox1: yup
       .boolean()
-      .oneOf([true], <p style={{ color: "red" }}>Checkbox selection is</p>),
+      .oneOf([true], <p style={{ color: "red" }}>Checkbox selection is</p>)
+      .required(),
   });
   const {
     register,
@@ -52,8 +56,6 @@ const Signupclient = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
- 
 
   const paperStyle = {
     padding: "30px 20px",

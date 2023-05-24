@@ -86,14 +86,11 @@ const Signupsociete = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div style={{ display: "flex", gap: "15px" }}>
             <TextField
-              id="nomsociete"
               fullWidth
               label="Nom Société"
               type="text"
               {...register("nomsociete")}
               placeholder="Entrez le nom de société"
-              // autoComplete="on"
-
               autoComplete="nomsociete"
               error={errors.nomsociete}
               helperText={errors.nomsociete && errors.nomsociete.message}
@@ -102,7 +99,6 @@ const Signupsociete = () => {
           <br />
           <br />
           <TextField
-            id="email"
             fullWidth
             label="Email"
             type="email"
@@ -115,7 +111,6 @@ const Signupsociete = () => {
           <br />
           <br />
           <TextField
-            id="password"
             fullWidth
             label="Mot de passe"
             type="password"
@@ -152,7 +147,7 @@ const Signupsociete = () => {
             J'accepte les termes et les conditions
           </Link>{" "}
           {errors.checkbox1 && <span>{errors.checkbox1.message}</span>}
-          <Button type="submit" variant="contained" color="primary" >
+          <Button type="submit" variant="contained" color="primary">
             S'inscrire
           </Button>
           <Typography>

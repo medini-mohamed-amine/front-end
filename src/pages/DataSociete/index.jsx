@@ -29,9 +29,9 @@ const DataSociete = () => {
       gouvernorat: yup.string().required("gouvernorats est obligatoire"),
       description: yup.string().required("description est obligatoire"),
       logo: yup.string().required("Logo est obligatoire"),
-      temps: yup.number().integer().positive().min(1).required(),
-      prix: yup.number().min(1).required(),
-      poids: yup.number().min(1).required(),
+      temps: yup.number().integer().positive().min(1).max(100).required(),
+      prix: yup.number().min(1).max(100).required(),
+      poids: yup.number().min(1).max(100).required(),
     })
     .required();
 
@@ -92,8 +92,8 @@ const DataSociete = () => {
             {...register("gouvernorat")}
             autoComplete="gouvernorat"
             fullWidth
-            error={errors.adresse}
-            helperText={errors.adresse && errors.adresse.message}
+            error={errors.gouvernorat}
+            helperText={errors.gouvernorat && errors.gouvernorat.message}
           />
           <br />
           <br />

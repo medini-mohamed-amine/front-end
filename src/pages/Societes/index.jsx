@@ -23,8 +23,23 @@ const Societes = () => {
             {data.Company.company &&
               data.Company.company.map((card, index) => (
                 <div className={style.card}>
-                  <h3>{card.nomsociete}</h3>
-                  <img src={card.logo} width={100} height={70} />
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <h3>{card.nomsociete}</h3>{" "}
+                    <img
+                      style={{
+                        marginLeft: "90px",
+                        marginTop: "-15px",
+                        width: "48%",
+                        height: 70,
+                      }}
+                      src={card.logo}
+                    />
+                  </div>
                   <p>
                     <b>Num Tel:</b> {card.numerotel}
                   </p>
@@ -34,22 +49,10 @@ const Societes = () => {
                   <p>
                     <b>Email: </b> {card.email}
                   </p>
-                  <p>
-                    <b>Prix: {card.prix} DT</b>
-                  </p>
-                  <p>
-                    <b>Poids Max: {card.poids} KG</b>
-                  </p>
-                  <p>
-                    <b>Temps: {card.temps} Heures</b>
-                  </p>
-                  <p>
-                    <b>Gouvernorat:</b> {card.gouvernorat}
-                  </p>
+
                   <p>
                     <b>Description:</b> {card.description}
                   </p>
-                  <button className={style.btn1}>afficher plus</button>
                 </div>
               ))}
           </div>

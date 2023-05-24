@@ -3,7 +3,8 @@ import React, { useState } from "react";
 // import style1 from "./style.module.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
-import { Pie } from "react-chartjs-2";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 import Grid from "@mui/material/Grid";
 
@@ -34,29 +35,25 @@ const Home = () => {
     compar2: "",
   });
 
-  const data = {
-    labels: ["Red", "Blue", "Yellow"],
-    datasets: [
-      {
-        label: "# of Votes",
-        data: [12, 19, 3],
-        backgroundColor: [
-          "rgba(255, 99, 132)",
-          "rgba(54, 162, 235)",
-          "rgba(255, 206, 86)",
-        ],
-        width: ["30%"],
-        borderColor: [
-          "rgba(255, 99, 132)",
-          "rgba(54, 162, 235)",
-          "rgba(255, 206, 86)",
-        ],
-        borderWidth: 1,
-      },
-    ],
-  };
   ChartJS.register(ArcElement, Tooltip, Legend);
 
+  const choice1 =
+    dataHome.TwoCompanies.Home &&
+    dataHome.TwoCompanies.Home.find(
+      (element) => element.idsociete === compar.compar1
+    );
+  const choice2 =
+    dataHome.TwoCompanies.Home &&
+    dataHome.TwoCompanies.Home.find(
+      (element) => element.idsociete === compar.compar2
+    );
+
+  function countWords(gov) {
+    return gov?.split(",").length;
+  }
+
+  const value_choice1 = countWords(choice1?.gouvernorat || "");
+  const value_choice2 = countWords(choice2?.gouvernorat || "");
   return (
     <div>
       <div
@@ -77,7 +74,7 @@ const Home = () => {
                 <Autocomplete
                   id="societe-select1"
                   onChange={(e, v) =>
-                    setCompar({ ...compar, compar1: v.nomsociete })
+                    setCompar({ ...compar, compar1: v.idsociete })
                   }
                   sx={{ width: 480 }}
                   options={dataHome.TwoCompanies.Home}
@@ -119,12 +116,12 @@ const Home = () => {
                   options={
                     dataHome.TwoCompanies.Home &&
                     dataHome.TwoCompanies.Home.filter(
-                      (item) => item.nomsociete !== compar.compar1
+                      (item) => item.idsociete !== compar.compar1
                     )
                   }
                   autoHighlight
                   onChange={(e, v) =>
-                    setCompar({ ...compar, compar2: v.nomsociete })
+                    setCompar({ ...compar, compar2: v.idsociete })
                   }
                   getOptionLabel={(option) => option.nomsociete}
                   renderOption={(props, option) => (
@@ -138,7 +135,7 @@ const Home = () => {
                         height="50"
                         width="90"
                         src={option.logo}
-                        alt=""
+                        alt="Logo Société"
                       />
                       {option.nomsociete}
                     </Box>
@@ -155,7 +152,7 @@ const Home = () => {
                   )}
                 />
               </div>
-              <div class="col-auto">
+              <div>
                 <button type="submit" class="btn btn-primary mb-2">
                   Comparer
                 </button>
@@ -168,55 +165,128 @@ const Home = () => {
       <section class="container mb-5">
         <h2>Résultats de comparaison</h2>
         <hr />
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            Société 1
+
+        <Grid container spacing={6}>
+          <Grid
+            item
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            xs={4}
+          >
+            <Rating name="size-large" defaultValue={0} size="large" />
+            <br />
+            {choice1?.nomsociete}
+            <br />
+            <img
+              src={choice1?.logo}
+              alt="Logo de la société"
+              style={{ height: "40%", width: "50%", justifyContent: "center" }}
+            ></img>
+            <p>
+              <b>34</b>Clients PARTICIPANTS
+            </p>
+            <p>
+              <b>403</b>TOTAL NOTATIONS
+            </p>
           </Grid>
-          <Grid item xs={6}>
-            Société 2
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            item
+            xs={4}
+          >
+            <h1>VS</h1>
+          </Grid>
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            item
+            xs={4}
+          >
+            <Rating name="size-large" defaultValue={0} size="large" />
+            <br />
+            {choice2?.nomsociete}
+            <br />
+            <img
+              src={choice2?.logo}
+              alt="Logo de la société"
+              style={{ height: "40%", width: "50%" }}
+            ></img>
+            <p>
+              <b>34</b>Clients PARTICIPANTS
+            </p>
+            <p>
+              <b>403</b>TOTAL NOTATIONS
+            </p>
           </Grid>
         </Grid>
+        <br />
         <hr />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <h1 style={{ fontFamily: "sans-serif", fontWeight: "700" }}>
-              Société 1 <b>VS </b>Société 2
-            </h1>
+            <div style={{ display: "flex" }}>
+              <h1 style={{ fontFamily: "cursive", fontWeight: "300" }}>
+                {choice1?.nomsociete}
+              </h1>{" "}
+              <b style={{ fontSize: "40px", Bolt: "50px" }}> _VS_</b>{" "}
+              <h1 style={{ fontFamily: "cursive", fontWeight: "300" }}>
+                {choice2?.nomsociete}
+              </h1>
+            </div>
           </Grid>
           <Grid item xs={12}>
             <p>
               Comparez les deux sociétés de livraison de colis en tunisie qui
-              sont <b>Société 1</b> et <b>Société 2</b>
+              sont <b>{choice1?.nomsociete}</b> et <b>{choice2?.nomsociete}</b>{" "}
               par le temps de livraison , le prix de livraison , le poids de
-              colis ,le classement de la société et d'autres notes. Les
-              résultats ont été générés par les clients qui sont inscrits dans
-              le site
+              colis ,les gouvernorats de livraison , le classement de la société
+              et d'autres notes. Les résultats ont été générés par les clients
+              qui sont inscrits dans le site
             </p>
           </Grid>
+          <hr />
           <Grid item xs={6}>
-            <h4>Société 1</h4>
+            <h4>{choice1?.nomsociete}</h4>
             <img
-              src="https://www.allocoursier.com/images/alo2.png"
-              alt="allo coursier"
-              style={{ height: "60%", width: "20%" }}
+              src={choice1?.logo}
+              alt="Logo de la société"
+              style={{ height: "70%", width: "20%" }}
             ></img>
-            <p style={{ margin: "4px 0 0 100px" }}>
-              Description de la société 1
-            </p>
+            <p style={{ margin: "-68px 0 0 130px" }}>{choice1?.description}</p>
           </Grid>
 
           <Grid item xs={6}>
-            <h4>Société 2</h4>
+            <h4>{choice2?.nomsociete} </h4>
             <img
-              src="https://www.allocoursier.com/images/alo2.png"
-              alt="allo coursier"
-              style={{ height: "60%", width: "20%" }}
+              src={choice2?.logo}
+              alt="Logo de la société"
+              style={{ height: "70%", width: "20%" }}
             ></img>
-            <p style={{ margin: "4px 0 0 100px" }}>
-              Description de la société 2
-            </p>
+            <p style={{ margin: "-68px 0 0 130px" }}>{choice2?.description}</p>
           </Grid>
-
           <Grid
             style={{
               dispaly: "flex",
@@ -224,12 +294,20 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "90px",
             }}
             item
             xs={4}
           >
-            nombre
-            <Rating name="size-large" defaultValue={2} size="large" />
+            <div style={{ display: "inline-flex" }}>
+              <b style={{ marginTop: "5px" }}>{choice1?.prix / 20}/5</b>
+              <Rating
+                name="size-large"
+                value={choice1?.prix / 20}
+                precision={0.5}
+                size="large"
+              />
+            </div>
           </Grid>
           <hr />
           <Grid
@@ -239,11 +317,12 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "90px",
             }}
             item
             xs={4}
           >
-            <b> Prix</b>
+            <h5> Prix de livraison</h5>
           </Grid>
           <Grid
             item
@@ -253,11 +332,19 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "90px",
             }}
             xs={4}
           >
-            nombre
-            <Rating name="size-large" defaultValue={2} size="large" />
+            <div style={{ display: "inline-flex" }}>
+              <b style={{ marginTop: "5px" }}>{choice2?.prix / 20}/5</b>
+              <Rating
+                name="size-large"
+                value={choice2?.prix / 20}
+                precision={0.5}
+                size="large"
+              />
+            </div>
           </Grid>
           <Grid
             style={{
@@ -266,12 +353,20 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             item
             xs={4}
           >
-            nombre
-            <Rating name="size-large" defaultValue={2} size="large" />
+            <div style={{ display: "inline-flex" }}>
+              <b style={{ marginTop: "5px" }}>{choice1?.temps / 20}/5</b>
+              <Rating
+                name="size-large"
+                value={choice1?.temps / 20}
+                precision={0.5}
+                size="large"
+              />
+            </div>
           </Grid>
           <hr />
           <Grid
@@ -281,11 +376,12 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             item
             xs={4}
           >
-            <b> Temps de livraison</b>
+            <h5> Temps de livraison</h5>
           </Grid>
           <Grid
             item
@@ -295,12 +391,20 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             xs={4}
           >
             {" "}
-            nombre
-            <Rating name="size-large" defaultValue={2} size="large" />
+            <div style={{ display: "inline-flex" }}>
+              <b style={{ marginTop: "5px" }}>{choice2?.temps / 20}/5</b>
+              <Rating
+                name="size-large"
+                value={choice2?.temps / 20}
+                precision={0.5}
+                size="large"
+              />
+            </div>
           </Grid>
           <Grid
             style={{
@@ -309,12 +413,20 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             item
             xs={4}
           >
-            nombre
-            <Rating name="size-large" defaultValue={2} size="large" />
+            <div style={{ display: "inline-flex" }}>
+              <b style={{ marginTop: "5px" }}>{choice1?.poids / 20}/5</b>
+              <Rating
+                name="size-large"
+                value={choice1?.poids / 20}
+                precision={0.5}
+                size="large"
+              />
+            </div>
           </Grid>
           <hr />
           <Grid
@@ -324,11 +436,12 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             item
             xs={4}
           >
-            <b> Poids de colis</b>
+            <h5> Poids de colis</h5>
           </Grid>
           <Grid
             item
@@ -338,26 +451,20 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             xs={4}
           >
             {" "}
-            nombre
-            <Rating name="size-large" defaultValue={2} size="large" />
-          </Grid>
-          <Grid
-            style={{
-              dispaly: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              textAlign: "center",
-              width: "100%",
-            }}
-            item
-            xs={4}
-          >
-            nombre
-            <Rating name="size-large" defaultValue={2} size="large" />
+            <div style={{ display: "inline-flex" }}>
+              <b style={{ marginTop: "5px" }}>{choice2?.poids / 20}/5</b>
+              <Rating
+                name="size-large"
+                value={choice2?.poids / 20}
+                precision={0.5}
+                size="large"
+              />
+            </div>
           </Grid>
 
           <Grid
@@ -367,40 +474,17 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             item
             xs={4}
           >
-            <b> Gouvernorats de livraison</b>
-          </Grid>
-          <Grid
-            item
-            style={{
-              dispaly: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              textAlign: "center",
-              width: "100%",
-            }}
-            xs={4}
-          >
-            {" "}
-            nombre
-            <Rating name="size-large" defaultValue={2} size="large" />
-          </Grid>
-
-          <Grid
-            style={{
-              dispaly: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              textAlign: "center",
-              width: "100%",
-            }}
-            item
-            xs={4}
-          >
-            <Pie style={{ width: "140px", height: "140px" }} data={data} />
+            <CircularProgressbar
+              value={value_choice1}
+              maxValue={24}
+              text={`${value_choice1}/24`}
+            />
+            <b>{choice1?.gouvernorat}</b>
           </Grid>
           <hr />
           <Grid
@@ -410,11 +494,12 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             item
             xs={4}
           >
-            <b> Prix</b>
+            <h5> Gouvernorats de livraison</h5>
           </Grid>
           <Grid
             item
@@ -424,12 +509,63 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             xs={4}
           >
-            <Pie data={data} />
+            <CircularProgressbar
+              value={value_choice2}
+              maxValue={24}
+              text={`${value_choice2}/24`}
+            />
+            <b>{choice2?.gouvernorat}</b>
           </Grid>
           <hr />
+
+          <Grid container spacing={6}>
+            <Grid
+              item
+              style={{
+                dispaly: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+                width: "100%",
+                marginTop: "6px",
+              }}
+              xs={4}
+            >
+              <Rating name="size-large" defaultValue={0} size="large" />
+            </Grid>
+            <Grid
+              style={{
+                dispaly: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+                width: "100%",
+                marginTop: "6px",
+              }}
+              item
+              xs={4}
+            >
+              <h5>Noter la société</h5>
+            </Grid>
+            <Grid
+              style={{
+                dispaly: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+                width: "100%",
+                marginTop: "6px",
+              }}
+              item
+              xs={4}
+            >
+              <Rating name="size-large" defaultValue={0} size="large" />
+            </Grid>
+          </Grid>
 
           <Grid
             item
@@ -439,13 +575,20 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             xs={4}
           >
             <TextField
-              variant="filled"
-              placeholder="Donner votre avis"
-            ></TextField>
+              label="Votre Message"
+              placeholder="Ecrire votre message ici"
+              type="text"
+              fullWidth
+              multiline
+              rows={3}
+            />
+            <br />
+            <br />
             <Button variant="contained" endIcon={<SendIcon />}>
               Envoyer
             </Button>
@@ -457,11 +600,12 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             item
             xs={4}
           >
-            <b> Donner votre avis</b>
+            <h5>Donner votre avis</h5>
           </Grid>
           <Grid
             style={{
@@ -470,18 +614,25 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             item
             xs={4}
           >
-            <TextField variant="filled" placeholder="Donner votre avis">
-              {" "}
-            </TextField>
+            <TextField
+              label="Votre Message"
+              placeholder="Ecrire votre message ici"
+              type="text"
+              fullWidth
+              multiline
+              rows={3}
+            />
+            <br />
+            <br />
             <Button variant="contained" endIcon={<SendIcon />}>
               Envoyer
             </Button>
           </Grid>
-          <hr />
 
           <Grid
             item
@@ -491,10 +642,11 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             xs={4}
           >
-            <Rating name="size-large" defaultValue={0} size="large" />
+            Avis sur la societe 1
           </Grid>
           <Grid
             style={{
@@ -503,11 +655,12 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             item
             xs={4}
           >
-            <b>Noter une société</b>
+            <h5>Les avis des clients</h5>
           </Grid>
           <Grid
             style={{
@@ -516,11 +669,12 @@ const Home = () => {
               alignItems: "center",
               textAlign: "center",
               width: "100%",
+              marginTop: "6px",
             }}
             item
             xs={4}
           >
-            <Rating name="size-large" defaultValue={0} size="large" />
+            Avis sur societe 2
           </Grid>
         </Grid>
       </section>

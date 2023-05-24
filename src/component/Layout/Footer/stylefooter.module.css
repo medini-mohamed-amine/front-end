@@ -1,17 +1,13 @@
 li {
-    display: inline;
+  display: inline;
 }
-
-
-
 
 .p100 {
-    font-family:sans-serif;
-    font-size: medium;    
+  font-family: sans-serif;
+  font-size: medium;
 }
 
-.container100{
-    background-color: lightblue;
-    width: 100%;
+.container100 {
+  background-color: lightblue;
+  width: 200%;
 }
-

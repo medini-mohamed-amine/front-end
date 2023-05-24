@@ -9,6 +9,7 @@ import FetchListeSocietes from "./Redux/ListeSocietesSlice";
 import FetchListeAvis from "./Redux/ListeAvisSlice";
 import FetchListeDemandeAide from "./Redux/ListeDemandeAidesSlice";
 import ResultatComparison from "./Redux/HomeSlice";
+import getAvisClients from "./Redux/AvisSlice";
 
 const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
     ListeAvis: FetchListeAvis,
     ListeDemandeAide: FetchListeDemandeAide,
     TwoCompanies: ResultatComparison,
+    Avis: getAvisClients,
   },
 });
 

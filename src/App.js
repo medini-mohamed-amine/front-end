@@ -12,11 +12,7 @@ import Signupclient from "./pages/Signup-client";
 import Signupsociete from "./pages/Signup-societe";
 import Societes from "./pages/Societes";
 
-import Dashboard from "./pages/Dashboard";
-import Listeclients from "./pages/Dashboard/ListeClients";
-import Listesocietes from "./pages/Dashboard/ListeSocietes";
-import Listeavis from "./pages/Dashboard/ListeAvis";
-import DemandeAides from "./pages/Dashboard/DemandeAides";
+import Admin from "./pages/router/Admin";
 
 import { Helmet } from "react-helmet";
 import DataSociete from "./pages/DataSociete";
@@ -34,25 +30,100 @@ function App() {
         />
       </Helmet>
       <BrowserRouter>
-        <Header />
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/Contact" element={<Contact />} />
-          <Route path="/Societes" element={<Societes />} />
-          <Route path="/Aide" element={<Aide />} />
-          <Route path="/Signin" element={<Signin />} />
-          <Route path="/Signupclient" element={<Signupclient />} />
-          <Route path="/Signupsociete" element={<Signupsociete />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
-          <Route path="/ListeClients" element={<Listeclients />} />
-          <Route path="/ListeSocietes" element={<Listesocietes />} />
-          <Route path="/ListeAvis" element={<Listeavis />} />
-          <Route path="/DemandeAides" element={<DemandeAides />} />
-          <Route path="/DataSociete" element={<DataSociete />} />
+          <Route
+            exact
+            path="/"
+            element={
+              <div>
+                <Header />
+                <Home />
+                <Footer />
+              </div>
+            }
+          />
+          <Route
+            path="/About"
+            element={
+              <div>
+                <Header /> <About />
+                <Footer />
+              </div>
+            }
+          />
+          <Route
+            path="/Contact"
+            element={
+              <div>
+                <Header />
+                <Contact />
+                <Footer />
+              </div>
+            }
+          />
+          <Route
+            path="/Societes"
+            element={
+              <div>
+                <Header />
+                <Societes />
+                <Footer />
+              </div>
+            }
+          />
+          <Route
+            path="/Aide"
+            element={
+              <div>
+                <Header />
+                <Aide />
+                <Footer />
+              </div>
+            }
+          />
+          <Route
+            path="/Signin"
+            element={
+              <div>
+                <Header />
+                <Signin />
+                <Footer />
+              </div>
+            }
+          />
+          <Route
+            path="/Signupclient"
+            element={
+              <div>
+                <Header />
+                <Signupclient />
+                <Footer />
+              </div>
+            }
+          />
+          <Route
+            path="/Signupsociete"
+            element={
+              <div>
+                <Header />
+                <Signupsociete />
+                <Footer />
+              </div>
+            }
+          />
+          <Route
+            path="/DataSociete"
+            element={
+              <div>
+                <Header />
+                <DataSociete />
+                <Footer />
+              </div>
+            }
+          />
+          <Route path="/Admin/*" element={<Admin />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
-        <Footer />
       </BrowserRouter>
     </div>
   );

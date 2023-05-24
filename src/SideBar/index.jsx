@@ -1,64 +1,68 @@
-import { Box, Button, Divider, Drawer } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import React from "react";
 
 import { Link } from "react-router-dom";
+import { Avatar } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 
-import MenuSharpIcon from "@mui/icons-material/MenuSharp";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import CreateIcon from "@mui/icons-material/Create";
 import QuizIcon from "@mui/icons-material/Quiz";
 import LogoutIcon from "@mui/icons-material/Logout";
+import PersonIcon from "@mui/icons-material/Person";
 
-const Dashboard = () => {
+const SideBar = () => {
   const [state, setState] = React.useState({
-    left: false,
+    left: true,
+    anchor: true,
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
     setState({ ...state, [anchor]: open });
   };
+  const avatarStyle = { backgroundColor: "blue", height: "40px" };
 
   const list = (anchor) => (
-    <Box
-      sx={{ width: anchor === "right" ? "auto" : 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
+    <Box sx={{ width: 250 }}>
+      <div style={{ display: "flex" }}>
+        <Avatar style={avatarStyle}>
+          <PersonIcon />
+        </Avatar>
+        Administrateur
+      </div>
+      <Divider style={{ border: "2px solid black" }} />
       <List>
         {[
           {
+            Icon: <DashboardIcon />,
+            label: "Dashboard",
+            path: "/admin",
+          },
+          {
             Icon: <PeopleIcon />,
             label: "Liste Clients",
-            path: "/listeclients",
+            path: "/admin/listeclients",
           },
           {
             Icon: <LocationCityIcon />,
             label: "Liste Sociétés",
-            path: "/listesocietes",
+            path: "/admin/listesocietes",
           },
           {
             Icon: <CreateIcon />,
             label: "Liste Avis",
-            path: "/listeavis",
+            path: "/admin/listeavis",
           },
           {
             Icon: <QuizIcon />,
             label: 'Demandes d"aide',
-            path: "/DemandeAides",
+            path: "/admin/DemandeAides",
           },
         ].map(({ Icon, label, path }, index) => (
           <Link to={path}>
@@ -87,22 +91,10 @@ const Dashboard = () => {
 
   return (
     <div>
-      {["dashboard"].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>
-            <MenuSharpIcon />
-            {anchor}
-          </Button>
-          <Drawer
-            anchor="left"
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-          >
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
+      {["Liste"].map((anchor) => (
+        <React.Fragment key={anchor}>{list(anchor)}</React.Fragment>
       ))}
     </div>
   );
 };
-export default Dashboard;
+export default SideBar;
