@@ -16,6 +16,11 @@ import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 
+import DangerousIcon from "@mui/icons-material/Dangerous";
+import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
+import { red } from "@mui/material/colors";
+import { green } from "@mui/material/colors";
+
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -54,6 +59,19 @@ const Home = () => {
 
   const value_choice1 = countWords(choice1?.gouvernorat || "");
   const value_choice2 = countWords(choice2?.gouvernorat || "");
+
+  function words(str) {
+    return str?.split(",");
+  }
+
+  const TypeColis = {
+    FIX: "Livraison 24h + pick up drop off le client met ses colis dans l un de nos dépôts le plus proche + Poids volumétrique",
+    ONP: "Livraison 24 heure + Pick up from Shipper + Poids volumétrique moins de 25 kg",
+    BLK: "Livraison peut atteindre 7 jours + Pick up from shipper + Poids volumétrique supérieur à 25 Kg",
+    OND: "ond est un type de livraison",
+    SSD: "ssd est un type de livraison",
+  };
+
   return (
     <div>
       <div
@@ -300,16 +318,10 @@ const Home = () => {
             xs={4}
           >
             <div style={{ display: "inline-flex" }}>
-              <b style={{ marginTop: "5px" }}>{choice1?.prix / 20}/5</b>
-              <Rating
-                name="size-large"
-                value={choice1?.prix / 20}
-                precision={0.5}
-                size="large"
-              />
+              <b style={{ marginTop: "5px" }}>{choice1?.prix} DT / KG</b>
             </div>
           </Grid>
-          <hr />
+
           <Grid
             style={{
               dispaly: "flex",
@@ -337,13 +349,7 @@ const Home = () => {
             xs={4}
           >
             <div style={{ display: "inline-flex" }}>
-              <b style={{ marginTop: "5px" }}>{choice2?.prix / 20}/5</b>
-              <Rating
-                name="size-large"
-                value={choice2?.prix / 20}
-                precision={0.5}
-                size="large"
-              />
+              <b style={{ marginTop: "5px" }}>{choice2?.prix} DT / KG</b>
             </div>
           </Grid>
           <Grid
@@ -358,15 +364,9 @@ const Home = () => {
             item
             xs={4}
           >
-            <div style={{ display: "inline-flex" }}>
-              <b style={{ marginTop: "5px" }}>{choice1?.temps / 20}/5</b>
-              <Rating
-                name="size-large"
-                value={choice1?.temps / 20}
-                precision={0.5}
-                size="large"
-              />
-            </div>
+            <b>
+              <p style={{ marginTop: "5px" }}>{choice1?.tempsmin} H</p>
+            </b>
           </Grid>
           <hr />
           <Grid
@@ -381,7 +381,7 @@ const Home = () => {
             item
             xs={4}
           >
-            <h5> Temps de livraison</h5>
+            <h5> Temps Min de livraison</h5>
           </Grid>
           <Grid
             item
@@ -396,15 +396,9 @@ const Home = () => {
             xs={4}
           >
             {" "}
-            <div style={{ display: "inline-flex" }}>
-              <b style={{ marginTop: "5px" }}>{choice2?.temps / 20}/5</b>
-              <Rating
-                name="size-large"
-                value={choice2?.temps / 20}
-                precision={0.5}
-                size="large"
-              />
-            </div>
+            <b>
+              <p style={{ marginTop: "5px" }}>{choice2?.tempsmin} H</p>
+            </b>
           </Grid>
           <Grid
             style={{
@@ -418,15 +412,9 @@ const Home = () => {
             item
             xs={4}
           >
-            <div style={{ display: "inline-flex" }}>
-              <b style={{ marginTop: "5px" }}>{choice1?.poids / 20}/5</b>
-              <Rating
-                name="size-large"
-                value={choice1?.poids / 20}
-                precision={0.5}
-                size="large"
-              />
-            </div>
+            <b>
+              <p style={{ marginTop: "5px" }}>{choice1?.tempsmax} H</p>
+            </b>
           </Grid>
           <hr />
           <Grid
@@ -441,7 +429,7 @@ const Home = () => {
             item
             xs={4}
           >
-            <h5> Poids de colis</h5>
+            <h5> Temps Max de livraison</h5>
           </Grid>
           <Grid
             item
@@ -456,16 +444,345 @@ const Home = () => {
             xs={4}
           >
             {" "}
-            <div style={{ display: "inline-flex" }}>
-              <b style={{ marginTop: "5px" }}>{choice2?.poids / 20}/5</b>
-              <Rating
-                name="size-large"
-                value={choice2?.poids / 20}
-                precision={0.5}
-                size="large"
-              />
-            </div>
+            <b>
+              <p style={{ marginTop: "5px" }}>{choice2?.tempsmax} H</p>
+            </b>
           </Grid>
+
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            item
+            xs={4}
+          >
+            <b>
+              <p style={{ marginTop: "5px" }}>{choice1?.poidsmin} KG</p>
+            </b>
+          </Grid>
+          <hr />
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            item
+            xs={4}
+          >
+            <h5> Poids Min de livraison</h5>
+          </Grid>
+          <Grid
+            item
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            xs={4}
+          >
+            {" "}
+            <b>
+              <p style={{ marginTop: "5px" }}>{choice2?.poidsmin} KG</p>
+            </b>
+          </Grid>
+
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            item
+            xs={4}
+          >
+            <b>
+              <p style={{ marginTop: "5px" }}>{choice1?.poidsmax} KG</p>
+            </b>
+          </Grid>
+          <hr />
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            item
+            xs={4}
+          >
+            <h5> Poids Max de livraison</h5>
+          </Grid>
+          <Grid
+            item
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            xs={4}
+          >
+            {" "}
+            <b>
+              <p style={{ marginTop: "5px" }}>{choice2?.poidsmax} KG</p>
+            </b>
+          </Grid>
+
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            item
+            xs={4}
+          >
+            <b>
+              <p style={{ marginTop: "5px" }}>
+                {choice1?.volumemin} m<sup>3</sup>
+              </p>
+            </b>
+          </Grid>
+          <hr />
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            item
+            xs={4}
+          >
+            <h5> Volume Min de livraison</h5>
+          </Grid>
+          <Grid
+            item
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            xs={4}
+          >
+            {" "}
+            <b>
+              <p style={{ marginTop: "5px" }}>
+                {choice2?.volumemin} m<sup>3</sup>
+              </p>
+            </b>
+          </Grid>
+
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            item
+            xs={4}
+          >
+            <b>
+              <p style={{ marginTop: "5px" }}>
+                {choice1?.volumemax} m<sup>3</sup>
+              </p>
+            </b>
+          </Grid>
+          <hr />
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            item
+            xs={4}
+          >
+            <h5> Volume Max de livraison</h5>
+          </Grid>
+          <Grid
+            item
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            xs={4}
+          >
+            {" "}
+            <b>
+              <p style={{ marginTop: "5px" }}>
+                {choice2?.volumemax} m<sup>3</sup>
+              </p>
+            </b>
+          </Grid>
+
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            item
+            xs={4}
+          >
+            <p
+              style={{
+                display: "flex",
+                alignItems: "center",
+                background: "#FFF",
+                gap: "15px",
+              }}
+            >
+              {choice1?.typecolis &&
+                words(choice1?.typecolis).map((definition) => (
+                  <abbr title={TypeColis[definition.trim()]}>{definition}</abbr>
+                ))}
+            </p>
+          </Grid>
+          <hr />
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            item
+            xs={4}
+          >
+            <h5> Type de Colis</h5>
+          </Grid>
+          <Grid
+            item
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            xs={4}
+          >
+            {" "}
+            <b>
+              <p style={{ marginTop: "5px" }}>{choice2?.typecolis}</p>
+            </b>
+          </Grid>
+
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            item
+            xs={4}
+          >
+            <b style={{ marginTop: "5px" }}>
+              {choice1?.fragile === true ? (
+                <DoneOutlineIcon
+                  style={{ fontSize: "40px" }}
+                  sx={{ color: green[300] }}
+                />
+              ) : (
+                <DangerousIcon
+                  style={{ fontSize: "40px" }}
+                  sx={{ color: red[500] }}
+                />
+              )}
+            </b>
+          </Grid>
+          <hr />
+          <Grid
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            item
+            xs={4}
+          >
+            <h5> Colis Fragile</h5>
+          </Grid>
+          <Grid
+            item
+            style={{
+              dispaly: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+              width: "100%",
+              marginTop: "6px",
+            }}
+            xs={4}
+          >
+            <b style={{ marginTop: "5px" }}>
+              {choice2?.fragile === true ? (
+                <DoneOutlineIcon
+                  style={{ fontSize: "40px" }}
+                  sx={{ color: green[300] }}
+                />
+              ) : (
+                <DangerousIcon
+                  style={{ fontSize: "40px" }}
+                  sx={{ color: red[500] }}
+                />
+              )}
+            </b>
+          </Grid>
+          <br />
+          <br />
+          <br />
+          <br />
 
           <Grid
             style={{
@@ -683,3 +1000,12 @@ const Home = () => {
 };
 
 export default Home;
+
+{
+  /* <Rating
+                name="size-large"
+                value={choice1?.prix / 20}
+                precision={0.5}
+                size="large"
+              /> */
+}

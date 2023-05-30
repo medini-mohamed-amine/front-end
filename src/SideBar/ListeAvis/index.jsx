@@ -19,11 +19,13 @@ import { ShowListeAvis } from "../../Redux/ListeAvisSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
-const Listeavis = () => {
-  const drawerWidth = 240;
+import InputLabel from "@mui/material/InputLabel";
+import Input from "@mui/material/Input";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
+const Listeavis = () => {
   const StyledTableContainer = {
-    width: "1100px",
+    width: "100%",
     height: "auto",
   };
   const data = useSelector((state) => state.ListeAvis.avis);
@@ -34,58 +36,76 @@ const Listeavis = () => {
   }, []);
   console.log(data);
   return (
-    <div>
+    <div
+      style={{
+        background: "#f0f2f5",
+        height: "100vh",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        gap: "32px",
+      }}
+    >
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar
-          position="fixed"
-          sx={{
-            width: `calc(100% - ${drawerWidth}px)`,
-            ml: `${drawerWidth}px`,
-          }}
-        >
+        <AppBar position="block">
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
-              La Liste des Avis
+              Avis Clients
             </Typography>
           </Toolbar>
         </AppBar>
       </Box>
-      <br />
-      <br />
-      <br />
-      <TableContainer style={StyledTableContainer} component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead style={{ backgroundColor: "lightgray" }}>
-            <TableRow>
-              <TableCell>ID Client</TableCell>
-              <TableCell align="right">ID Société</TableCell>
-              <TableCell align="right">L'Avis du Client</TableCell>
-              <TableCell align="right">ID Avis</TableCell>
-              <TableCell align="right">Supprimer</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data &&
-              data?.map((row) => (
-                <TableRow
-                  key={row.idsociete}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.idutilisateur}
-                  </TableCell>
-                  <TableCell align="right">{row.idsociete}</TableCell>
-                  <TableCell align="right">{row.clientavis}</TableCell>
-                  <TableCell align="right">{row.idavis}</TableCell>
-                  <TableCell align="right">
-                    <DeleteIcon />
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div style={{ padding: "0px 20px" }}>
+        <h3>La Liste des avis des clients</h3>
+        <InputLabel>
+          <Input
+            startAdornment={<SearchOutlinedIcon />}
+            placeholder="Rechercher par nom"
+            id="MyInput"
+          />
+        </InputLabel>
+        <TableContainer style={StyledTableContainer} component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell style={{ fontSize: "20px" }}>ID Client</TableCell>
+                <TableCell align="right" style={{ fontSize: "20px" }}>
+                  ID Société
+                </TableCell>
+                <TableCell align="right" style={{ fontSize: "20px" }}>
+                  L'Avis du Client
+                </TableCell>
+                <TableCell align="right" style={{ fontSize: "20px" }}>
+                  ID Avis
+                </TableCell>
+                <TableCell align="right" style={{ fontSize: "20px" }}>
+                  Supprimer
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data &&
+                data?.map((row) => (
+                  <TableRow
+                    key={row.idsociete}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {row.idutilisateur}
+                    </TableCell>
+                    <TableCell align="right">{row.idsociete}</TableCell>
+                    <TableCell align="right">{row.clientavis}</TableCell>
+                    <TableCell align="right">{row.idavis}</TableCell>
+                    <TableCell align="right">
+                      <DeleteIcon />
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </div>
   );
 };

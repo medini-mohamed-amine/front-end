@@ -9,6 +9,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 
+import CssBaseline from "@mui/material/CssBaseline";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
@@ -26,17 +31,24 @@ const SideBar = () => {
   const toggleDrawer = (anchor, open) => (event) => {
     setState({ ...state, [anchor]: open });
   };
-  const avatarStyle = { backgroundColor: "blue", height: "40px" };
+
+  const sidebarstyle = {
+    backgroundColor: "lightgray",
+  };
 
   const list = (anchor) => (
-    <Box sx={{ width: 250 }}>
-      <div style={{ display: "flex" }}>
-        <Avatar style={avatarStyle}>
-          <PersonIcon />
-        </Avatar>
-        Administrateur
-      </div>
-      <Divider style={{ border: "2px solid black" }} />
+    <Box sx={{ width: 250, height: "100vh" }}>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar position="block">
+          <Toolbar>
+            <Typography variant="h6" noWrap component="div">
+              <PersonIcon style={{ margin: "5px" }} />
+              Administrateur
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </Box>
       <List>
         {[
           {
@@ -90,7 +102,7 @@ const SideBar = () => {
   );
 
   return (
-    <div>
+    <div style={sidebarstyle}>
       {["Liste"].map((anchor) => (
         <React.Fragment key={anchor}>{list(anchor)}</React.Fragment>
       ))}

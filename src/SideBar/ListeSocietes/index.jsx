@@ -19,11 +19,15 @@ import { ShowListeSocietes } from "../../Redux/ListeSocietesSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
+import InputLabel from "@mui/material/InputLabel";
+import Input from "@mui/material/Input";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+
 const Listesocietes = () => {
   const drawerWidth = 240;
 
   const StyledTableContainer = {
-    width: "1080px",
+    width: "100%",
     height: "auto",
   };
   const data = useSelector((state) => state.ListesSocietes.listesociete);
@@ -35,58 +39,72 @@ const Listesocietes = () => {
   console.log(data);
 
   return (
-    <div>
+    <div
+      style={{
+        background: "#f0f2f5",
+        height: "100vh",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        gap: "32px",
+      }}
+    >
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar
-          position="fixed"
-          sx={{
-            width: `calc(100% - ${drawerWidth}px)`,
-            ml: `${drawerWidth}px`,
-          }}
-        >
+        <AppBar position="block">
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
-              La Liste des Sociétés
+              Sociétés
             </Typography>
           </Toolbar>
         </AppBar>
       </Box>
-      <br />
-      <br />
-      <br />
-      <TableContainer style={StyledTableContainer} component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead style={{ backgroundColor: "lightgray" }}>
-            <TableRow>
-              <TableCell>ID Société</TableCell>
-              <TableCell align="right">Nom Société</TableCell>
-              <TableCell align="right">Adresse Société</TableCell>
-              <TableCell align="right">Numéro téléphone</TableCell>
-              <TableCell align="right">Supprimer</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data &&
-              data?.map((row) => (
-                <TableRow
-                  key={row.idsociete}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.idsociete}
-                  </TableCell>
-                  <TableCell align="right">{row.nomsociete}</TableCell>
-                  <TableCell align="right">{row.adresse}</TableCell>
-                  <TableCell align="right">{row.numerotel}</TableCell>
-                  <TableCell align="right">
-                    <DeleteIcon />
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div style={{ padding: "0px 20px" }}>
+        <h3>La Liste des Sociétéss</h3>
+        <InputLabel>
+          <Input
+            startAdornment={<SearchOutlinedIcon />}
+            placeholder="Rechercher par nom société"
+            id="MyInput"
+          />
+        </InputLabel>
+        <TableContainer style={StyledTableContainer} component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="left" style={{ fontSize: "20px" }}>
+                  Nom Société
+                </TableCell>
+                <TableCell align="left" style={{ fontSize: "20px" }}>
+                  Email Société
+                </TableCell>
+                <TableCell align="left" style={{ fontSize: "20px" }}>
+                  Numéro téléphone
+                </TableCell>
+                <TableCell align="left" style={{ fontSize: "20px" }}>
+                  Supprimer
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data &&
+                data?.map((row) => (
+                  <TableRow
+                    key={row.idsociete}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell align="left">{row.nomsociete}</TableCell>
+                    <TableCell align="left">{row.email}</TableCell>
+                    <TableCell align="left">{row.numerotel}</TableCell>
+                    <TableCell align="left">
+                      <DeleteIcon />
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </div>
   );
 };

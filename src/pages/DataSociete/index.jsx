@@ -4,6 +4,7 @@ import * as yup from "yup";
 
 import { Avatar, Button, Grid, Paper, TextField } from "@mui/material";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import Checkbox from "@mui/material/Checkbox";
 
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -31,7 +32,8 @@ const DataSociete = () => {
       logo: yup.string().required("Logo est obligatoire"),
       temps: yup.number().integer().positive().min(1).max(100).required(),
       prix: yup.number().min(1).max(100).required(),
-      poids: yup.number().min(1).max(100).required(),
+      poidsmin: yup.number().min(1).max(100).required(),
+      poidsmax: yup.number().moreThan(yup.ref("poidsmin")).max(100).required(),
     })
     .required();
 
@@ -143,15 +145,27 @@ const DataSociete = () => {
               helperText={errors.prix && errors.prix.message}
             ></TextField>
             <TextField
+              label="Poids Min de livraison"
+              placeholder="Entrez le poids min de livraison (en KG)"
+              type="text"
+              {...register("poidsmin")}
+              autoComplete="poidsmin"
+              fullWidth
+              error={errors.poidsmin}
+              helperText={errors.poidsmin && errors.poidsmin.message}
+            ></TextField>
+            <TextField
               label="Poids Max de livraison"
               placeholder="Entrez le poids max de livraison (en KG)"
               type="text"
-              {...register("poids")}
-              autoComplete="poids"
+              {...register("poidsmax")}
+              autoComplete="poidsmax"
               fullWidth
-              error={errors.poids}
-              helperText={errors.poids && errors.poids.message}
+              error={errors.poidsmax}
+              helperText={errors.poidsmax && errors.poidsmax.message}
             ></TextField>
+            <Checkbox id="fragile" />
+            Fragile ?
           </div>
           <Button
             type="submit"

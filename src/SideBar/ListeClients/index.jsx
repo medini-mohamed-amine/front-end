@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import DeleteIcon from "@mui/icons-material/Delete";
-// import SearchIcon from '@mui/icons-material/Search';
+
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
@@ -18,21 +18,19 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
+import InputLabel from "@mui/material/InputLabel";
+import Input from "@mui/material/Input";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+
 import { ShowListeClients } from "../../Redux/ListeClientsSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 const Listeclients = () => {
-  const drawerWidth = 240;
-
-  // const StyledTableContainer = {
-  //   width: "800px",
-  // };
-
-  // const StyledTableContainer = {
-  //   width: "1110px",
-  //   height: "auto",
-  // };
+  const StyledTableContainer = {
+    width: "100%",
+    height: "auto",
+  };
 
   const data = useSelector((state) => state.ListeClients.listeclient);
   const dispatch = useDispatch();
@@ -42,65 +40,73 @@ const Listeclients = () => {
   console.log(data);
 
   return (
-    <div>
+    <div
+      style={{
+        background: "#f0f2f5",
+        height: "100vh",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        gap: "32px",
+      }}
+    >
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar
-          position="fixed"
-          sx={{
-            width: `calc(100% - ${drawerWidth}px)`,
-            ml: `${drawerWidth}px`,
-          }}
-        >
+        <AppBar position="block">
           <Toolbar>
             <Typography variant="h6" noWrap component="div">
-              La Liste des Clients
+              Clients
             </Typography>
           </Toolbar>
         </AppBar>
       </Box>
-      <br />
-      <br />
-      <br />
-      <input
-        type="text"
-        id="myInput"
-        onkeyup="myFunction()"
-        placeholder="Search for names.."
-        title="Type in a name"
-      ></input>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table" id="myTable">
-          <TableHead style={{ backgroundColor: "lightgray" }}>
-            <TableRow>
-              <TableCell>ID Client</TableCell>
-              <TableCell align="right">Nom Client</TableCell>
-              <TableCell align="right">Prenom Client</TableCell>
-              <TableCell align="right">Email Client</TableCell>
-              <TableCell align="right">supprimer</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data &&
-              data?.map((row) => (
-                <TableRow
-                  key={row.idutilisateur}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.idutilisateur}
-                  </TableCell>
-                  <TableCell align="right">{row.nom}</TableCell>
-                  <TableCell align="right">{row.prenom}</TableCell>
-                  <TableCell align="right">{row.email}</TableCell>
-                  <TableCell align="right">
-                    <DeleteIcon />
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div style={{ padding: "0px 20px" }}>
+        <h3>La Liste des clients</h3>
+        <InputLabel>
+          <Input
+            startAdornment={<SearchOutlinedIcon />}
+            placeholder="Rechercher par nom"
+            id="MyInput"
+          />
+        </InputLabel>
+
+        <TableContainer style={StyledTableContainer} component={Paper}>
+          <Table aria-label="simple table" id="myTable">
+            <TableHead>
+              <TableRow>
+                <TableCell align="left" style={{ fontSize: "20px" }}>
+                  Nom Client
+                </TableCell>
+                <TableCell align="left" style={{ fontSize: "20px" }}>
+                  Prenom Client
+                </TableCell>
+                <TableCell align="left" style={{ fontSize: "20px" }}>
+                  Email Client
+                </TableCell>
+                <TableCell align="left" style={{ fontSize: "20px" }}>
+                  supprimer
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data &&
+                data?.map((row) => (
+                  <TableRow
+                    key={row.idutilisateur}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell align="left">{row.nom}</TableCell>
+                    <TableCell align="left">{row.prenom}</TableCell>
+                    <TableCell align="left">{row.email}</TableCell>
+                    <TableCell align="left">
+                      <DeleteIcon />
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </div>
   );
 };
