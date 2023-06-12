@@ -18,7 +18,7 @@ const Dashboard = () => {
         columnGap: "30px",
       }}
     >
-      <Card sx={{ width: 250, height: "150px" }}>
+      <Card sx={{ width: 250, height: "150px", backgroundColor: "lightblue" }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             nombre des clients
@@ -32,7 +32,7 @@ const Dashboard = () => {
         </CardContent>
       </Card>
       <br />
-      <Card sx={{ width: 250, height: "150px" }}>
+      <Card sx={{ width: 250, height: "150px", backgroundColor: "lightblue" }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             nombre des societes
@@ -46,7 +46,7 @@ const Dashboard = () => {
         </CardContent>
       </Card>
       <br />
-      <Card sx={{ width: 250, height: "150px" }}>
+      <Card sx={{ width: 250, height: "150px", backgroundColor: "lightblue" }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             nombre des clients inscrits le dernier moins.
@@ -60,7 +60,7 @@ const Dashboard = () => {
         </CardContent>
       </Card>
       <br />
-      <Card sx={{ width: 250, height: "150px" }}>
+      <Card sx={{ width: 250, height: "150px", backgroundColor: "lightblue" }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             nombre des societes inscrites le dernier moins.

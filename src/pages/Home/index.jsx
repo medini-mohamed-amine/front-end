@@ -665,19 +665,12 @@ const Home = () => {
             item
             xs={4}
           >
-            <p
-              style={{
-                display: "flex",
-                alignItems: "center",
-                background: "#FFF",
-                gap: "15px",
-              }}
-            >
+            <b style={{ marginTop: "5px" }}>
               {choice1?.typecolis &&
                 words(choice1?.typecolis).map((definition) => (
                   <abbr title={TypeColis[definition.trim()]}>{definition}</abbr>
                 ))}
-            </p>
+            </b>
           </Grid>
           <hr />
           <Grid
@@ -707,8 +700,11 @@ const Home = () => {
             xs={4}
           >
             {" "}
-            <b>
-              <p style={{ marginTop: "5px" }}>{choice2?.typecolis}</p>
+            <b style={{ marginTop: "5px" }}>
+              {choice2?.typecolis &&
+                words(choice2?.typecolis).map((definition) => (
+                  <abbr title={TypeColis[definition.trim()]}>{definition}</abbr>
+                ))}
             </b>
           </Grid>
 

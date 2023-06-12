@@ -1,8 +1,6 @@
 import { Container, Grid, Typography } from "@mui/material";
 import React from "react";
 
-import stylefooter2 from "./stylefooter.module.css";
-
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -12,7 +10,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <>
-      <Container className={stylefooter2.container100}>
+      <Container style={{ minWidth: "100%", backgroundColor: "lightblue" }}>
         <Grid container spcing={3}>
           <Grid item xs={12} sm={6} md={4} lg={3}>
             <Typography variant="h4" sx={{ margin: "15px" }}>
@@ -62,7 +60,7 @@ const Footer = () => {
             </Typography>
             <Typography variant="h6" sx={{ margin: "15px" }}>
               {" "}
-              <p className={stylefooter2.p100}>
+              <p style={{ fontFamily: "sans-serif", fontSize: "medium" }}>
                 WEREACT crée des marques, assure la notoriété, conçoit des
                 expériences digitales et développe des produits personnalisés
                 pour propulser les marques.
@@ -104,14 +102,16 @@ const Footer = () => {
           </Grid>
         </Grid>
 
-        <div className="text-center" style={{ stylefooter2 }}>
-          <li id="li1">WEREACT@2023 tous droits réservés</li>
-          <li id="li2">
+        <div className="text-center">
+          <li id="li1" style={{ display: "inline" }}>
+            WEREACT@2023 tous droits réservés
+          </li>
+          <li id="li2" style={{ display: "inline" }}>
             <Link to="https://wereact.co/mention" target="_blank">
               termes et conditions
             </Link>
           </li>
-          <li id="li">
+          <li id="li" style={{ display: "inline" }}>
             <Link
               to="https://www.facebook.com/profile.php?id=100057304665890"
               target="_blank"

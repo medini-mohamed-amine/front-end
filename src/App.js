@@ -115,9 +115,9 @@ function App() {
             path="/DataSociete"
             element={
               <div>
-                <Header />
+                {/* <Header /> */}
                 <DataSociete />
-                <Footer />
+                {/* <Footer /> */}
               </div>
             }
           />
